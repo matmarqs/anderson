@@ -1,0 +1,109 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\input{preamble}
+
+\title{\Huge{\textbf{Anderson}}}
+\author{Mateus Marques}
+
+\begin{document}
+
+\maketitle
+
+\section{Modelo}
+
+Nós tínhamos exatamente
+$$
+\qty[
+\omega^+ - \eps_0 - \Sigma^{(0)}(\omega^+)
+] G_{d\sigma}(\omega^+) = 1 + U \cdot
+D_{d\sigma}(\omega^+),
+$$
+onde, pela aproximação de \textit{mean-field}
+$$
+\Sigma^{(0)}(\omega^+) = \sum_{\k} \frac{\abs{t_{\k}}^2}{\omega^+ - \eps_{\k}}
+\e
+D_{d\sigma}(\omega^+) = \gf{\nn_{d\cc{\sigma}} \, \c_{d\sigma}}{\c^\dagger_{d\sigma}}
+\approx \ev{\nn_{d\cc{\sigma}}} G_{d\sigma}(\omega^+).
+$$
+
+Portanto
+$$
+G_{d\sigma}(\omega^+) =
+\frac{1}{\omega^+ - \eps_0 - \Sigma^{(0)}(\omega^+) - U \ev{\nn_{d\cc{\sigma}}}} =
+$$
+$$
+\frac{1}{
+\qty(\omega - \eps_0 - U \ev{\nn_{d\cc{\sigma}}} - \Re{\Sigma^{(0)}(\omega^+)})
++ i \, \qty(\eta - \Im{\Sigma^{(0)}(\omega^+)})
+}.
+$$
+e
+$$
+\boxed{ \Im{G_{d\sigma}(\omega^+)} =
+\frac{- \qty[\eta - \Im{\Sigma^{(0)}(\omega^+)}]}{
+\qty(\omega - \eps_0 - U \ev{\nn_{d\cc{\sigma}}} - \Re{\Sigma^{(0)}(\omega^+)})^2
++ \qty(\eta - \Im{\Sigma^{(0)}(\omega^+)})^2}. }
+$$
+
+\n
+
+Podemos então calcular $\Sigma^{(0)}(\omega^+)$ por
+$$
+\Sigma^{(0)}(\omega^+) = \sum_{\k} \frac{\abs{t_{\k}}^2}{\omega^+ - \eps_{\k}} =
+\text{Vol} \cdot \int \frac{\dd[d]{{\k}}}{(2\pi)^d} \, \frac{\abs{t({\k})}^2}{\omega^+ - \eps({\k})}.
+$$
+Supondo que $t(k)$ e $\eps(k)$ só dependem do módulo $k = \abs{\k}$, temos
+$$
+\Sigma^{(0)}(\omega^+) = \frac{\text{Vol}}{(2\pi)^d}
+\int \dd{\Omega}
+\int \frac{\abs{t(k)}^2 \dd{k}}{\omega^+ - \eps(k)}.
+$$
+Sendo então que $\dd{k} = d(\eps) \dd{\eps}$ e $\omega^+ = \omega + i\eta$, temos
+$$
+\Sigma^{(0)}(\omega^+) = \frac{\Omega \cdot \text{Vol}}{(2\pi)^d}
+\int \frac{\abs{t(\eps)}^2}{\omega - \eps + i \eta} \, d(\eps) \dd{\eps}
+$$
+$$
+= \frac{\Omega \cdot \text{Vol}}{(2\pi)^d} \, \qty{
+P.V. \int \frac{\abs{t(\eps)}^2}{\omega - \eps} \, d(\eps) \dd{\eps}
+- i \pi \int \delta(\omega - \eps) \, \abs{t(\eps)}^2  d(\eps) \dd{\eps}
+}
+$$
+Definindo então $\Delta(\eps) = \pi \, \frac{\Omega \cdot \text{Vol}}{(2\pi)^d} \, \abs{t(\eps)}^2  d(\eps)$, temos que
+$$
+\boxed{ \Sigma^{(0)}(\omega^+) = P.V. \int \frac{\Delta(\eps)}{\omega - \eps} \dd{\eps} - i \Delta(\omega). }
+$$
+
+Chamando $\boxed{ \Lambda(\omega) = \Re{\Sigma^{(0)}(\omega^+)} = P.V. \int \frac{\Delta(\eps)}{\omega - \eps} \dd{\eps} }$ e tomando $\eta \to 0^+$, temos
+$$
+A_{d\sigma}(\omega) = - \frac{1}{\pi} \Im{G_{d\sigma}(\omega^+)} \implies
+$$
+$$
+\boxed{ A_{d\sigma}(\omega) = \frac{\Delta(\omega) / \pi}{
+\Big[\omega - \eps_0 - U \ev{\nn_{d\cc{\sigma}}} - \Lambda(\omega) \Big]^2
++ \Big[\Delta(\omega)\Big]^2 }. }
+$$
+
+Para temperatura $T = 1/(k_B \beta)$, temos $n_F(\omega) = (e^{\beta \omega} + 1)^{-1}$ e então
+$$
+\boxed{ \ev{\nn_{d\sigma}} = \intR \frac{A_{d\sigma}(\omega)}{e^{\beta\omega} + 1} \dd{\omega}. }
+$$
+
+No caso especial onde $T = 0$ ($\beta = \infty$), temos que $e^{\beta \omega} = +\infty \cdot \theta(\omega)$, o que nos dá
+$$
+\boxed{ \ev{\nn_{d\sigma}} = \int_{-\infty}^0 A_{d\sigma}(\omega) \dd{\omega}, \quad T = 0. }
+$$
+
+Como $A_{d\sigma}$ depende de $\ev{\nn_{d\cc{\sigma}}}$, as equações acima são de \textbf{ponto fixo}
+$$
+\boxed{ \ev{\nn_{d\sigma}} = \s{F}\qty{\ev{\nn_{d\cc{\sigma}}}} } \text{ , onde } \,
+\s{F}\qty{\ev{\nn_{d\sigma}}} =
+\intR \frac{A_{d\sigma}(\omega, \ev{\nn_{d\cc{\sigma}}})}{e^{\beta\omega} + 1} \dd{\omega}.
+$$
+
+Por enquanto escolheremos
+$$
+\Delta(\omega) = \Delta_0 \, \qty[1 - \qty(\frac{\omega}{D})^2].
+$$
+
+
+\end{document}
