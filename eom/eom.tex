@@ -1,0 +1,174 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\input{preamble}
+
+\title{\Huge{\textbf{EOM}}}
+\author{Mateus Marques}
+
+\begin{document}
+
+\maketitle
+
+Aqui, tentarei justificar a equação (11) do paper ``Quantitative comparison of Anderson impurity solvers applied to transport in quantum dots'' de acordo com a aproximação que descobri que dá o resultado correto: $[n_{\cc{\sigma}}, H] \approx 0$.
+
+\section{Fatos}
+
+\begin{itemize}
+\item Equação de movimento:
+$$
+\omega^+ \gf{A}{B} = \ev{\{ A, B\}} + \gf{[A, H]}{B}.
+$$
+\item Básicos:
+$$
+[a, bc] = [a, b] c + b [a, c] \e [a, bc] = \{a, b\} c - b \{a, c\}.
+$$
+\end{itemize}
+
+\section{Modelo}
+
+Nosso modelo é
+$$
+H = H_{\text{imp}} + H_{\text{C}} + H_{\text{B}},
+$$
+onde
+$$
+H_{\text{imp}} = \sum_\sigma \eps_\sigma f_\sigma^\dagger f_\sigma +
+U n_\uparrow n_\downarrow,
+$$
+$$
+H_{\text{B}} = \sum_{\alpha, \k, \sigma} \eps_{\alpha \k \sigma}
+c_{\alpha \k \sigma}^\dagger c_{\alpha \k \sigma},
+$$
+$$
+H_{\text{C}} = \sum_{\alpha, \k, \sigma} \Big(
+V_{\alpha \k \sigma} c^\dagger_{\alpha \k \sigma} f_\sigma +
+V_{\alpha \k \sigma}^* f^\dagger_\sigma  c_{\alpha \k \sigma}
+\Big).
+$$
+
+Temos que $\alpha \in \{L, R\}$ e assumimos que $\eps_{\alpha \k \sigma}$ e $V_{\alpha \k \sigma}$ não dependem de $\sigma$. A equação de movimento exata para $G_\sigma(\omega^+) = \gf{f_\sigma}{f_\sigma^\dagger}$ é a mesma que calculamos em nossos estudos anteriores:
+$$
+\Big(
+\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)
+\Big) G_\sigma(\omega^+)
+= 1 + U \, \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger},
+$$
+onde $\displaystyle{\Sigma_0(\omega^+) = \sum_{\alpha \k} \frac{\abs{V_{\alpha \k}^2}}{\omega - \eps_{\alpha \k}}}$. Lembremos que, para chegar na equação acima, tínhamos calculado os comutadores
+$$
+[f_\sigma, H] = \eps_0  f_\sigma + U n_{\cc{\sigma}} f_\sigma +
+\sum_{\alpha \k} V_{\alpha \k}^* c_{\alpha \k \sigma},
+$$
+$$
+[c_{\alpha \k \sigma}, H] = \eps_{\alpha \k} c_{\alpha \k \sigma} +
+V_{\alpha \k} f_\sigma.
+$$
+
+Vamos mais fundo e calculemos agora a equação de movimento para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$:
+$$
+\omega^+ \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{\{n_{\cc{\sigma}} f_\sigma, f_\sigma^\dagger\}} +
+\gf{[n_{\cc{\sigma}} f_\sigma, H]}{f_\sigma^\dagger}.
+$$
+Temos que
+$$
+\{n_{\cc{\sigma}} f_\sigma, f_\sigma^\dagger\} =
+n_{\cc{\sigma}} \{f_\sigma, f_\sigma^\dagger\}= n_{\cc{\sigma}},
+$$
+$$
+[n_{\cc{\sigma}} f_\sigma, H] = \cancelto{\approx 0}{[n_{\cc{\sigma}}, H]} f_\sigma +
+n_{\cc{\sigma}} [f_\sigma, H] =
+\eps_0 n_{\cc{\sigma}} f_\sigma + U n_{\cc{\sigma}}^2 f_\sigma +
+\sum_{\alpha \k} V_{\alpha \k}^* n_{\cc{\sigma}} c_{\alpha \k \sigma} =
+$$
+$$
+= \eps_0 n_{\cc{\sigma}} f_\sigma + U n_{\cc{\sigma}} f_\sigma +
+\sum_{\alpha \k} V_{\alpha \k}^* n_{\cc{\sigma}} c_{\alpha \k \sigma}.
+$$
+Acima, estamos fazendo a aproximação $[n_{\cc{\sigma}}, H] = [n_{\cc{\sigma}}, H_{\text{C}}] \approx 0$. Usamos também que $n_{\cc{\sigma}}^2 = n_{\cc{\sigma}}$. Temos então
+$$
+\Big(
+\omega^+ - \eps_0 - U
+\Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} +
+\sum_{\alpha \k} V_{\alpha \k}^*
+\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}
+$$
+
+Vamos mais fundo de novo, e calculemos a equação de movimento para $\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}$:
+$$
+\omega^+ \gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger} =
+\ev{\{n_{\cc{\sigma}} c_{\alpha \k \sigma}, f_\sigma^\dagger\}} +
+\gf{[n_{\cc{\sigma}} c_{\alpha \k \sigma}, H]}{f_\sigma^\dagger}.
+$$
+
+Os comutadores dão
+$$
+\{n_{\cc{\sigma}} c_{\alpha \k \sigma}, f_\sigma^\dagger\} =
+n_{\cc{\sigma}} \{c_{\alpha \k \sigma}, f_\sigma^\dagger\} = 0,
+$$
+$$
+[n_{\cc{\sigma}} c_{\alpha \k \sigma}, H] =
+\cancelto{\approx 0}{[n_{\cc{\sigma}}, H]} c_{\alpha \k \sigma} +
+n_{\cc{\sigma}} [c_{\alpha \k \sigma}, H] =
+\eps_{\alpha \k} n_{\cc{\sigma}} c_{\alpha \k \sigma} +
+V_{\alpha \k} n_{\cc{\sigma}} f_\sigma.
+$$
+
+Substituindo na EOM, temos
+$$
+\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger} =
+\frac{V_{\alpha \k}}{\omega^+  - \eps_{\alpha \k}}
+\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}.
+$$
+
+Agora substituiremos esse resultado na EOM para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$:
+$$
+\Big(
+\omega^+ - \eps_0 - U
+\Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} +
+\sum_{\alpha \k} \frac{\abs{V_{\alpha \k}}^2}{\omega^+  - \eps_{\alpha \k}}
+\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} \implies
+$$
+$$
+\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\frac{\ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_0 - U - \Sigma_0(\omega^+)}.
+$$
+
+Finalmente, podemos voltar na EOM para $G_\sigma$:
+$$
+\Big(
+\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)
+\Big) G_\sigma(\omega^+)
+= 1 + \frac{U \ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_0 - \Sigma_0(\omega^+) - U}
+\implies
+$$
+$$
+G_\sigma(\omega^+) =
+\frac{\omega^+ - \eps_0 - \Sigma_0(\omega^+) - U (1 - \ev{n_{\cc{\sigma}}})}
+{\Big(\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)\Big)\Big(\omega^+ - \eps_0 - \Sigma_0(\omega^+) - U\Big)}.
+$$
+
+Agora, chame $x = \omega^+ - \eps_\sigma - \Sigma_0(\omega^+)$. Temos que (somando e subtraindo $x \cdot \ev{n_{\cc{\sigma}}}$):
+$$
+G_\sigma(\omega^+) =
+\frac{x - U (1 - \ev{n_{\cc{\sigma}}})}
+{x\Big(x - U\Big)} =
+\frac{x \ev{n_{\cc{\sigma}}}}{x\Big(x - U\Big)} +
+\frac{x - x \ev{n_{\cc{\sigma}} } - U (1 - \ev{n_{\cc{\sigma}}})}
+{x\Big(x - U\Big)} =
+$$
+$$
+= \frac{\ev{n_{\cc{\sigma}}}}{{x - U}} + \frac{1 - \ev{n_{\cc{\sigma}}}}{x}.
+$$
+
+Assim, chegamos finalmente à equação (11) do paper.
+$$
+\boxed{
+G_\sigma(\omega^+) =
+\frac{1 - \ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)} +
+\frac{\ev{n_{\cc{\sigma}}}}{{\omega^+ - \eps_\sigma - U - \Sigma_0(\omega^+)}}.
+}
+$$
+
+
+\end{document}
