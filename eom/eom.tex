@@ -8,12 +8,13 @@
 
 \maketitle
 
-Aqui, tentarei justificar a equação (11) do paper ``Quantitative comparison of Anderson impurity solvers applied to transport in quantum dots'' de acordo com a aproximação que descobri que dá o resultado correto: $[n_{\cc{\sigma}}, H] \approx 0$.
+Tentarei justificar as aproximações EOM0 e EOM1 do paper ``Quantitative comparison of Anderson impurity solvers applied to transport in quantum dots''.
 
-\section{Fatos}
+\n
 
+Primeiramente, alguns fatos básicos:
 \begin{itemize}
-\item Equação de movimento:
+\item Equação de movimento na notação de Zubarev:
 $$
 \omega^+ \gf{A}{B} = \ev{\{ A, B\}} + \gf{[A, H]}{B}.
 $$
@@ -21,11 +22,15 @@ $$
 $$
 [a, bc] = [a, b] c + b [a, c] \e [a, bc] = \{a, b\} c - b \{a, c\}.
 $$
+$$
+[f_\sigma, n_{\sigma}] = \{f_\sigma, n_{\sigma}\} = f_\sigma \e
+[f_\sigma^\dagger, n_{\sigma}] = -\{f_\sigma^\dagger, n_{\sigma}\}
+= - f_\sigma^\dagger.
+$$
 \end{itemize}
 
-\section{Modelo}
 
-Nosso modelo é
+O modelo SIAM (Single Impurity Anderson Model) em consideração é
 $$
 H = H_{\text{imp}} + H_{\text{C}} + H_{\text{B}},
 $$
@@ -50,11 +55,11 @@ $$
 \Big(
 \omega^+ - \eps_\sigma - \Sigma_0(\omega^+)
 \Big) G_\sigma(\omega^+)
-= 1 + U \, \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger},
+= 1 + U \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger},
 $$
 onde $\displaystyle{\Sigma_0(\omega^+) = \sum_{\alpha \k} \frac{\abs{V_{\alpha \k}^2}}{\omega - \eps_{\alpha \k}}}$. Lembremos que, para chegar na equação acima, tínhamos calculado os comutadores
 $$
-[f_\sigma, H] = \eps_0  f_\sigma + U n_{\cc{\sigma}} f_\sigma +
+[f_\sigma, H] = \eps_\sigma  f_\sigma + U n_{\cc{\sigma}} f_\sigma +
 \sum_{\alpha \k} V_{\alpha \k}^* c_{\alpha \k \sigma},
 $$
 $$
@@ -62,7 +67,12 @@ $$
 V_{\alpha \k} f_\sigma.
 $$
 
-Vamos mais fundo e calculemos agora a equação de movimento para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$:
+
+\section{Aproximação EOM0}
+
+A aproximação que descobri que dá o resultado correto para EOM0 (equação (11) do paper) é $[n_{\cc{\sigma}}, H] \approx 0$.
+
+Vamos mais fundo calculando a equação de movimento para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$:
 $$
 \omega^+ \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
 \ev{\{n_{\cc{\sigma}} f_\sigma, f_\sigma^\dagger\}} +
@@ -76,24 +86,24 @@ $$
 $$
 [n_{\cc{\sigma}} f_\sigma, H] = \cancelto{\approx 0}{[n_{\cc{\sigma}}, H]} f_\sigma +
 n_{\cc{\sigma}} [f_\sigma, H] =
-\eps_0 n_{\cc{\sigma}} f_\sigma + U n_{\cc{\sigma}}^2 f_\sigma +
+\eps_\sigma n_{\cc{\sigma}} f_\sigma + U n_{\cc{\sigma}}^2 f_\sigma +
 \sum_{\alpha \k} V_{\alpha \k}^* n_{\cc{\sigma}} c_{\alpha \k \sigma} =
 $$
 $$
-= \eps_0 n_{\cc{\sigma}} f_\sigma + U n_{\cc{\sigma}} f_\sigma +
+= \eps_\sigma n_{\cc{\sigma}} f_\sigma + U n_{\cc{\sigma}} f_\sigma +
 \sum_{\alpha \k} V_{\alpha \k}^* n_{\cc{\sigma}} c_{\alpha \k \sigma}.
 $$
 Acima, estamos fazendo a aproximação $[n_{\cc{\sigma}}, H] = [n_{\cc{\sigma}}, H_{\text{C}}] \approx 0$. Usamos também que $n_{\cc{\sigma}}^2 = n_{\cc{\sigma}}$. Temos então
 $$
 \Big(
-\omega^+ - \eps_0 - U
+\omega^+ - \eps_\sigma - U
 \Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
 \ev{n_{\cc{\sigma}}} +
 \sum_{\alpha \k} V_{\alpha \k}^*
-\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}
+\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}.
 $$
 
-Vamos mais fundo de novo, e calculemos a equação de movimento para $\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}$:
+Vamos mais fundo de novo, calculando a equação de movimento para $\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}$:
 $$
 \omega^+ \gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger} =
 \ev{\{n_{\cc{\sigma}} c_{\alpha \k \sigma}, f_\sigma^\dagger\}} +
@@ -121,17 +131,17 @@ $$
 $$
 
 Agora substituiremos esse resultado na EOM para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$:
-$$
+\begin{equation} \label{eq:not-meanfield}
 \Big(
-\omega^+ - \eps_0 - U
+\omega^+ - \eps_\sigma - U
 \Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
 \ev{n_{\cc{\sigma}}} +
 \sum_{\alpha \k} \frac{\abs{V_{\alpha \k}}^2}{\omega^+  - \eps_{\alpha \k}}
-\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} \implies
+\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}
+\end{equation}
 $$
-$$
-\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
-\frac{\ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_0 - U - \Sigma_0(\omega^+)}.
+\implies \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\frac{\ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_\sigma - U - \Sigma_0(\omega^+)}.
 $$
 
 Finalmente, podemos voltar na EOM para $G_\sigma$:
@@ -139,13 +149,13 @@ $$
 \Big(
 \omega^+ - \eps_\sigma - \Sigma_0(\omega^+)
 \Big) G_\sigma(\omega^+)
-= 1 + \frac{U \ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_0 - \Sigma_0(\omega^+) - U}
+= 1 + \frac{U \ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_\sigma - \Sigma_0(\omega^+) - U}
 \implies
 $$
 $$
 G_\sigma(\omega^+) =
-\frac{\omega^+ - \eps_0 - \Sigma_0(\omega^+) - U (1 - \ev{n_{\cc{\sigma}}})}
-{\Big(\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)\Big)\Big(\omega^+ - \eps_0 - \Sigma_0(\omega^+) - U\Big)}.
+\frac{\omega^+ - \eps_\sigma - \Sigma_0(\omega^+) - U (1 - \ev{n_{\cc{\sigma}}})}
+{\Big(\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)\Big)\Big(\omega^+ - \eps_\sigma - \Sigma_0(\omega^+) - U\Big)}.
 $$
 
 Agora, chame $x = \omega^+ - \eps_\sigma - \Sigma_0(\omega^+)$. Temos que (somando e subtraindo $x \cdot \ev{n_{\cc{\sigma}}}$):
@@ -168,6 +178,166 @@ G_\sigma(\omega^+) =
 \frac{1 - \ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)} +
 \frac{\ev{n_{\cc{\sigma}}}}{{\omega^+ - \eps_\sigma - U - \Sigma_0(\omega^+)}}.
 }
+$$
+
+\section{Aproximação EOM1}
+
+Agora justificarei a aproximação EOM1 (equação (15) do paper). Ela se baseia na aproximação de Hubbard-I. Lembre que a equação exata para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$ era
+$$
+\omega^+ \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{\{n_{\cc{\sigma}} f_\sigma, f_\sigma^\dagger\}} +
+\gf{[n_{\cc{\sigma}} f_\sigma, H]}{f_\sigma^\dagger},
+$$
+onde $\{n_{\cc{\sigma}} f_\sigma, f_\sigma^\dagger\} = n_{\cc{\sigma}}$. Para o comutador, tínhamos que $[n_{\cc{\sigma}} f_\sigma, H] = [n_{\cc{\sigma}}, H] f_\sigma + n_{\cc{\sigma}} [f_\sigma, H]$, onde fizemos a aproximação $[n_{\cc{\sigma}}, H] \approx 0$. Desta vez, fiquemos com esse termo mais um pouco:
+$$
+\Big(
+\omega^+ - \eps_\sigma - U
+\Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} +
+\sum_{\alpha \k} V_{\alpha \k}^*
+\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger} +
+\textcolor{MidnightBlue}{\gf{[n_{\cc{\sigma}}, H] f_\sigma}{f_\sigma^\dagger}}.
+$$
+
+Calculando $[n_{\cc{\sigma}}, H]$ explicitamente, temos
+$$
+[n_{\cc{\sigma}}, H] = [n_{\cc{\sigma}}, H_{\text{C}}] =
+\sum_{\alpha \k \tau} \Big\{
+V_{\alpha \k} [n_{\cc{\sigma}}, c_{\alpha \k \tau}^\dagger f_\tau] +
+V_{\alpha \k}^* [n_{\cc{\sigma}}, f_\tau^\dagger c_{\alpha \k \tau}]
+\Big\}.
+$$
+Temos que
+$$
+[n_{\cc{\sigma}}, c_{\alpha \k \tau}^\dagger f_\tau] =
+\cancelto{0}{[n_{\cc{\sigma}}, c_{\alpha \k \tau}^\dagger]} f_\tau +
+c_{\alpha \k \tau}^\dagger
+[n_{\cc{\sigma}}, f_\tau] =
+- \delta_{\tau \cc{\sigma}} \, c_{\alpha \k \tau}^\dagger f_{\tau},
+$$
+$$
+[n_{\cc{\sigma}}, f_\tau^\dagger c_{\alpha \k \tau}] =
+[n_{\cc{\sigma}}, f_\tau^\dagger] c_{\alpha \k \tau} +
+f_\tau^\dagger \cancelto{0}{[n_{\cc{\sigma}}, c_{\alpha \k \tau}]} =
++ \delta_{\tau \cc{\sigma}} \, f_{\tau}^\dagger c_{\alpha \k \tau}.
+$$
+
+Isso nos dá
+$$
+[n_{\cc{\sigma}}, H] =
+\sum_{\alpha \k} \Big\{
+- V_{\alpha \k} c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}} +
+V_{\alpha \k}^* f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}}
+\Big\}.
+$$
+
+Substituindo na EOM:
+$$
+\Big(
+\omega^+ - \eps_\sigma - U
+\Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} +
+\sum_{\alpha \k} V_{\alpha \k}^*
+\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger} +
+$$
+$$
+\textcolor{MidnightBlue}{
+\sum_{\alpha \k} \Big\{
+- V_{\alpha \k} \gf{c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}} f_\sigma}
+{f_\sigma^\dagger}
++ V_{\alpha \k}^* \gf{f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}} f_\sigma}
+{f_\sigma^\dagger}
+\Big\}}.
+$$
+
+A aproximação Hubbard-I consiste de \textbf{três} aproximações. As \textbf{duas} primeiras (equações (46) e (47) de \texttt{hubbard1963}) são
+$$
+\gf{c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}
+\approx
+\ev{c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}}} \gf{f_\sigma}{f_\sigma^\dagger}
+=
+\ev{c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}}} G_\sigma(\omega^+).
+$$
+$$
+\gf{f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}} f_\sigma}{f_\sigma^\dagger}
+\approx
+\ev{f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}}} \gf{f_\sigma}{f_\sigma^\dagger}
+=
+\ev{f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}}} G_\sigma(\omega^+).
+$$
+
+Com isso, o termo colorido fica
+$$
+\textcolor{MidnightBlue}{
+\sum_{\alpha \k} \Big\{
+- V_{\alpha \k} \gf{c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}} f_\sigma}
+{f_\sigma^\dagger}
++ V_{\alpha \k}^* \gf{f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}} f_\sigma}
+{f_\sigma^\dagger}
+\Big\}} =
+$$
+$$
+\textcolor{MidnightBlue}{
+\sum_{\alpha \k} \Big\{
+- V_{\alpha \k} \ev{c_{\alpha \k \cc{\sigma}}^\dagger f_{\cc{\sigma}}}
++ V_{\alpha \k}^* \ev{f_{\cc{\sigma}}^\dagger c_{\alpha \k \cc{\sigma}}}
+\Big\}  \, G_\sigma(\omega^+) } = \textcolor{MidnightBlue}{T} \, G_\sigma(\omega^+).
+$$
+
+No \texttt{hubbard1963} ele argumenta que o termo $T$ é nulo por simetria translacional. No nosso caso, o SIAM é somente de uma impureza. Mas se assumirmos que existissem várias impurezas regularmente dispostas, podemos utilizar o argumento de simetria translacional também (eu acho). Nesse caso, temos que $T = 0$.
+
+Mas observe o seguinte: colocar $\textcolor{MidnightBlue}{T} = 0$ implica que o termo que vem de $\textcolor{MidnightBlue}{[n_{\cc{\sigma}}, H]}$ é \textbf{nulo}. Portanto, ainda não estamos fazendo nada de novo em relação ao EOM0. Nós ainda temos a mesma equação de movimento
+$$
+\Big(
+\omega^+ - \eps_\sigma - U
+\Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} +
+\sum_{\alpha \k} V_{\alpha \k}^*
+\gf{n_{\cc{\sigma}} c_{\alpha \k \sigma}}{f_\sigma^\dagger}.
+$$
+
+A \textbf{última} aproximação do Hubbard-I (equação (45) de \texttt{hubbard1963}) é
+$$
+\gf{n_{\cc{\sigma}} c_{\alpha \k \cc{\sigma}}}{f_\sigma^\dagger}
+\approx
+\ev{n_{\cc{\sigma}}} \gf{c_{\alpha \k \cc{\sigma}}}{f_\sigma^\dagger}.
+$$
+
+Calculando rapidamente a equação de movimento para $\gf{c_{\alpha \k \cc{\sigma}}}{f_\sigma^\dagger}$, obtemos facilmente que
+$$
+\gf{c_{\alpha \k \cc{\sigma}}}{f_\sigma^\dagger} =
+\frac{V_{\alpha \k}}{\omega^+ - \eps_{\alpha \k}} \, G_\sigma(\omega^+).
+$$
+
+Com isso, a equação para $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger}$ fica:
+\begin{equation} \label{eq:yes-meanfield}
+\Big(
+\omega^+ - \eps_\sigma - U
+\Big) \gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} +
+\sum_{\alpha \k} \frac{\abs{V_{\alpha \k}}^2}
+{\omega^+ - \eps_{\alpha \k}} \ev{n_{\cc{\sigma}}} G_\sigma(\omega^+).
+\end{equation}
+
+Compare a equação \ref{eq:yes-meanfield} acima com a equação \ref{eq:not-meanfield}. É como se tivéssemos aplicado na equação \ref{eq:not-meanfield} uma aproximação de \textit{mean-field} $\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} \approx \ev{n_{\cc{\sigma}}} G_\sigma(\omega^+)$, obtendo assim a equação \ref{eq:yes-meanfield}. Isso mostra que na realidade, $\text{EOM0} > \text{EOM1}$ é um resultado mais exato, não o contrário.
+
+Por fim, temos em EOM1:
+$$
+\gf{n_{\cc{\sigma}} f_\sigma}{f_\sigma^\dagger} =
+\ev{n_{\cc{\sigma}}} \,
+\frac{1 + \Sigma_0(\omega^+) G_\sigma(\omega^+)}{\omega^+ - \eps_\sigma - U},
+$$
+o que nos dá a equação (15) para o EOM1
+$$
+\boxed{
+G_\sigma(\omega^+) =
+\frac{\omega^+ - \eps_\sigma - U(1-\ev{n_{\cc{\sigma}}})}
+{(\omega^+ - \eps_\sigma)(\omega^+ - \eps_\sigma - U) -
+\Sigma_0(\omega^+)
+\big[
+\omega^+ - \eps_\sigma - U(1-\ev{n_{\cc{\sigma}}})
+\big]
+}. }
 $$
 
 
