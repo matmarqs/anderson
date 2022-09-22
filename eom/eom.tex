@@ -327,7 +327,7 @@ $$
 \ev{n_{\cc{\sigma}}} \,
 \frac{1 + \Sigma_0(\omega^+) G_\sigma(\omega^+)}{\omega^+ - \eps_\sigma - U},
 $$
-o que nos dá a equação (15) para o EOM1
+o que nos dá a equação (15) do paper para o EOM1
 $$
 \boxed{
 G_\sigma(\omega^+) =
@@ -338,6 +338,28 @@ G_\sigma(\omega^+) =
 \omega^+ - \eps_\sigma - U(1-\ev{n_{\cc{\sigma}}})
 \big]
 }. }
+$$
+
+\pagebreak
+
+\section{Sympy}
+
+$$
+\boxed{
+G_\sigma(\omega^+) =
+\frac{1 - \ev{n_{\cc{\sigma}}}}{\omega^+ - \eps_\sigma - \Sigma_0(\omega^+)} +
+\frac{\ev{n_{\cc{\sigma}}}}{{\omega^+ - \eps_\sigma - U - \Sigma_0(\omega^+)}}.
+}
+$$
+
+Escrevendo $\Sigma_0(\omega) = \Lambda(\omega) - i \Delta(\omega)$, temos
+$$
+\boxed{
+A_\sigma(\omega) = \frac{- \Im{G_\sigma(\omega^+)}}{\pi} =
+\frac{\Delta(\omega) \langle n_{\overline{\sigma}} \rangle / \pi}
+{\left[\omega - \epsilon_{\sigma} - U - \Lambda(\omega)\right]^{2}+\Delta(\omega)^{2}}+\frac{\Delta(\omega) \left(1 - \langle n_{\overline{\sigma}} \rangle\right) / \pi}
+{\left[\omega - \epsilon_{\sigma} - \Lambda(\omega)\right]^{2} + \Delta(\omega)^{2}}.
+}
 $$
 
 
