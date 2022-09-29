@@ -1,7 +1,7 @@
 \documentclass[a4paper,fleqn,12pt]{article}
 \input{preamble}
 
-\title{\Huge{\textbf{Gagau}}}
+\title{\Huge{\textbf{Gagaumesh}}}
 \author{Mateus Marques}
 
 \begin{document}
@@ -177,7 +177,7 @@ N_{\text{points}} \approx
 \sum_{i=1}^{N_g} \frac{1}
 {\int_{\mu_i}^{\mu_i + dx_i/2} g(y, \mu_i, \sigma_i) \dd{y}}.
 $$
-But since $\sqrt{\frac{\pi}{4\log 2}} = 1.0647 \approx 1$ and
+But since $\sqrt{\frac{\pi}{4\log 2}} = 1.0647 \approx 1$
 $$
 \frac{1}{\int_{\mu_i}^{\mu_i + dx_i/2} g(y, \mu_i, \sigma_i) \dd{y}}
 \approx \frac{2 \sigma_i \sqrt{2\pi}}{dx_i} =
@@ -189,6 +189,48 @@ $$
 N_{\text{points}} \approx \sum_{i=1}^{N_g} \frac{2 F_i}{dx_i}. }
 $$
 
+\section{Fixing the loop}
 
+Previously we had
+\begin{minted}[bgcolor=bg]{py}
+# original script in Python2 and just wrong
+xn0 = xmin
+format = '%15.10f'
+for i in range(Ntot):
+    ni=i-Ntot/2
+    xn=bisect( meshN, xn0, xmax, (), 1e-15, 10000 )
+    if ni != 0:
+        print format % xn
+    xn0=xn
+\end{minted}
+
+Now we have
+\begin{minted}[bgcolor=bg]{py}
+# after being fixed and translated to Python3
+N_points = mesh.Npoints
+Func_min = mesh.N(xmin)
+# we define Func = mesh.N(x) - mesh.N(xmin)
+# in order for Func(xmin) = 0 and ceil( Func(xmax) ) = N_points
+Func = lambda x, n: mesh.N(x) - Func_min - n
+print("%15.10f" % xmin) # We always print xmin
+xn0 = xmin
+for n in range(1, N_points + 1):
+    xn = find_root(Func, xn0, xmax, args=(n), xtol=1e-15, maxiter=10000)
+    # find_root is actually scipy.optimize.brentq
+    # the best bracket root finder
+    print("%15.10f" % xn)
+    xn0 = xn
+print("%15.10f" % xmax) # We always print xmax
+\end{minted}
+
+The algorithm is as follows:
+\begin{itemize}
+\item First, define $F(x) = \aleph(x) - \aleph(x_{\text{min}})$.
+\item We want the interval $x \in [x_{\text{min}}, x_{\text{max}}]$.
+Thus, $F(x) \in [0, \aleph(x_{\text{max}}) - \aleph(x_{\text{min}})]$, where
+$N_{\text{points}} = \floor{\aleph(x_{\text{max}}) - \aleph(x_{\text{min}}}$.
+\item We then calculate the roots $x_n$ of $F$ at all the integers from $n = 1, 2, \ldots, N_{\text{points}}$ and \mintinline{py}{print(x_n)}. This is equivalent of calculating the inverse of $F$ at the integers, and will give $x$'s gaussian spaced (hence gaussian mesh).
+\item We then update \mintinline{py}{xn0 = xn}, because \mintinline{py}{xn0} was the root of $F_{n-1}(x) = F(x) - (n-1)$ and the next is \mintinline{py}{xn > xn0}, root of $F_n(x) = F(x) - n$.
+\end{itemize}
 
 \end{document}

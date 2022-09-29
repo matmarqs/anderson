@@ -16,7 +16,7 @@ import os
 import math
 
 from scipy.special import erf
-from scipy.optimize import bisect
+from scipy.optimize import brentq as find_root
 from math import *
 
 class GauMesh:
@@ -150,7 +150,7 @@ print("# N_points =",N_points,", NGauss =",ng,", x0 =",x0,", dx0 =",dx0,", fwhm 
 print("%15.10f" % xmin) # We always print xmin
 xn0 = xmin
 for n in range(1, N_points + 1):
-    xn = bisect(f=Func, a=xn0, b=xmax, args=(n), xtol=1e-15, maxiter=10000)
+    xn = find_root(f=Func, a=xn0, b=xmax, args=(n), xtol=1e-15, maxiter=10000)
     print("%15.10f" % xn)
     xn0 = xn
 print("%15.10f" % xmax) # We always print xmax
