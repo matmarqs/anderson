@@ -1,0 +1,194 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\input{preamble}
+
+\title{\Huge{\textbf{Gagau}}}
+\author{Mateus Marques}
+
+\begin{document}
+
+\maketitle
+
+\section{Erroing the gaussian}
+
+A gaussian is defined as
+$$
+g(x, \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp{-\frac{(x-\mu)^2}{2 \sigma^2}}.
+$$
+
+The error function erf is given by ($x = \mu + t\sigma \sqrt{2}$).
+$$
+\erf{z} = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} \dd{t} =
+\frac{2}{\sqrt{\pi}} \int_\mu^{\mu + z \sigma \sqrt{2}}
+e^{-\frac{(x-\mu)^2}{2\sigma^2}} \frac{\dd{x}}{\sigma \sqrt{2}} \implies
+$$
+$$
+\boxed{
+\erf{z} = 2 \int_\mu^{\mu+z\sigma\sqrt{2}} g(x, \mu, \sigma) \dd{x}. }
+$$
+$$
+\boxed{
+\erf{\frac{w-\mu}{\sigma\sqrt{2}}} = 2 \int_\mu^{w} g(x, \mu, \sigma) \dd{x}. }
+$$
+$$
+\boxed{
+\dv{z} \erf{z} = \sigma \, 2\sqrt{2} \, g(\mu + z\sigma\sqrt{2}, \mu, \sigma).}
+$$
+
+
+\section{\texttt{class Gargaumesh}}
+
+\begin{minted}[bgcolor=bg]{py}
+class GauMesh:
+    def __init__(self, A, alpha, xpos, xmin, xmax):
+        self.ng = len(A)
+        self.A = A
+        self.alpha = alpha
+        self.xpos = xpos
+        self.xmin = xmin
+        self.xmax = xmax
+        self.Npoints = floor(self.N(self.xmax) - self.N(self.xmin))
+    def N(self, x):
+        val = 0.0
+        for i in range(self.ng):
+            Ai = self.A[i]
+            ai = self.alpha[i]
+            xi = self.xpos[i]
+            val += 0.5*Ai*sqrt(pi/ai)*erf(sqrt(ai)*(x-xi))
+        return val
+\end{minted}
+
+\pagebreak
+
+\section{Unraveling the spaghetti}
+
+\mintinline{py}{int ng} $\equiv N_g$ = ``number of Gaussians''.
+
+\mintinline{py}{float fwmh[ng]} $\equiv F_i$ =  ``full width at half maximum''.
+
+\mintinline{py}{float alpha[ng]} $\equiv \alpha_i$ = ``Gaussian exponents''.
+
+\mintinline{py}{float A[ng]} $\equiv A_i$ = ``weights of Gaussians''.
+
+\mintinline{py}{float xpos[ng]} $\equiv \mu_i$ = ``position/center/mean of the Gaussians''.
+
+\mintinline{py}{float xmin} $\equiv x_{\text{min}}$ = ``start of mesh''.
+
+\mintinline{py}{float xmax} $\equiv x_{\text{max}}$ = ``end of mesh''.
+
+\mintinline{py}{float dx0[ng]} $\equiv dx_i$ = ``maximal resolution of each Gaussian mesh near its center''.
+
+\n
+
+What ``full width at half maximum'' means is $F_i = 2 w_i$, where
+$$
+e^{- \frac{w_i^2}{2\sigma_i^2}} = 1/2 \implies
+\boxed{ F_i = \sigma_i \sqrt{8 \log 2}. }
+$$
+
+``Gaussian exponent'' $\alpha_i$ is such that
+$$
+\sigma_i = \frac{1}{\sqrt{2\alpha_i}} \implies
+\boxed{ g(x, \mu_i, \sigma_i) \propto
+e^{- \frac{(x-\mu_i)^2}{2\sigma_i^2}} = e^{-\alpha_i (x - \mu_i)^2}. }
+$$
+
+Therefore, we have
+$$
+\erf{\sqrt{\alpha_i}\,(x-\mu_i)} = \erf{\frac{x-\mu_i}{\sigma_i\sqrt{2}}} =
+2 \int_{\mu_i}^x g(t, \mu_i, \sigma_i) \dd{t}.
+$$
+$$
+\erf{\sqrt{\alpha_i} \, dx_i/2} = \erf{\frac{dx_i/2}{\sigma_i\sqrt{2}}} =
+2 \int_{\mu_i}^{\mu_i + dx_i/2} g(t, \mu_i, \sigma_i) \dd{t}.
+$$
+
+\n
+
+We have the following code inside \mintinline{py}{main()}:
+\begin{minted}[bgcolor=bg]{py}
+for i in range(ng):
+    alpha.append(4*log(2)/(fwhm[i])**2)
+    A.append(2*sqrt(alpha[i]/pi)/erf(sqrt(alpha[i])*dx0[i]/2))
+\end{minted}
+
+$$
+\alpha_i = \frac{4 \log 2}{F_i^2} \implies
+\boxed{ \sigma_i = \frac{1}{\sqrt{2\alpha_i}} = \frac{F_i}{\sqrt{8 \log 2}}. }
+$$
+$$
+A_i = \frac{2 \sqrt{\alpha_i / \pi}}{\erf{\sqrt{\alpha_i} \, dx_i / 2}} =
+2 \cdot \frac{1}{\sigma_i \sqrt{2\pi}} \cdot
+\frac{1}{\erf{\sqrt{\alpha_i} \, dx_i / 2}}.
+$$
+
+The \mintinline{py}{N(self, x)} method inside \mintinline{py}{GauMesh}:
+\begin{minted}[bgcolor=bg]{py}
+def N( self, x ):
+    val = 0.0
+    for i in range(self.ng):
+        Ai = self.A[i]
+        ai = self.alpha[i]
+        xi = self.xpos[i]
+        val += 0.5*Ai*sqrt(pi/ai)*erf(sqrt(ai)*(x-xi))
+    return val
+\end{minted}
+
+The function \mintinline{py}{N(self, x)} is given by $\aleph(x)$, where
+$$
+\aleph(x) = \sum_{i = 1}^{N_g} \frac{A_i}{2} \, \sqrt{\frac{\pi}{\alpha_i}} \,
+\erf{\sqrt{\alpha_i} \, (x - \mu_i)} =
+\sum_{i=1}^{N_g}
+\frac{\erf{\sqrt{\alpha_i} \, (x - \mu_i)}}{\erf{\sqrt{\alpha_i} \, dx_i / 2}} =
+\sum_{i = 1}^{N_g} f_i(x).
+$$
+
+Let $f_i(x)$ be
+$$
+f_i(x) = \frac{\erf{\sqrt{\alpha_i} \, (x - \mu_i)}}
+{\erf{\sqrt{\alpha_i} \, dx_i / 2}}.
+$$
+
+If we take $x_i^\pm = \mu_i \pm dx_i/2$, we get $f(x_i^\pm) = \pm 1$. This is what is meant by $dx_i$ determining the maximum resolution.
+
+We then have
+
+$$
+\aleph(x) =
+\sum_{i=1}^{N_g}
+\frac{\int_{\mu_i}^x g(t, \mu_i, \sigma_i) \dd{t}}
+{\int_{\mu_i}^{\mu_i + dx_i/2} g(y, \mu_i, \sigma_i) \dd{y}}
+\quad \text{and} \quad
+\dv{\aleph}{x} =
+\sum_{i=1}^{N_g}
+\frac{g(x, \mu_i, \sigma_i)}
+{\int_{\mu_i}^{\mu_i + dx_i/2} g(y, \mu_i, \sigma_i) \dd{y}}.
+$$
+
+The number of points of the mesh is given by
+$$
+N_{\text{points}} = \floor{\aleph(x_{\text{max}}) - \aleph(x_{\text{min}})},
+$$
+which is $N_{\text{points}} = \floor{2 \, \aleph(x_{\text{max}})}$ if $x_{\text{min}} = - x_{\text{max}}$.
+
+Also
+$$
+N_{\text{points}} \approx
+\int_{-\infty}^{\infty} \dv{\aleph}{x} \dd{x} =
+\sum_{i=1}^{N_g} \frac{1}
+{\int_{\mu_i}^{\mu_i + dx_i/2} g(y, \mu_i, \sigma_i) \dd{y}}.
+$$
+But since $\sqrt{\frac{\pi}{4\log 2}} = 1.0647 \approx 1$ and
+$$
+\frac{1}{\int_{\mu_i}^{\mu_i + dx_i/2} g(y, \mu_i, \sigma_i) \dd{y}}
+\approx \frac{2 \sigma_i \sqrt{2\pi}}{dx_i} =
+\frac{2 F_i}{dx_i} \, \sqrt{\frac{\pi}{4\log 2}} \approx \frac{2 F_i}{dx_i},
+$$
+it follows
+$$
+\boxed{
+N_{\text{points}} \approx \sum_{i=1}^{N_g} \frac{2 F_i}{dx_i}. }
+$$
+
+
+
+\end{document}
