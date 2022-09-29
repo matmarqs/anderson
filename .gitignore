@@ -2,3 +2,4 @@
 **/*.aux
 **/*.out
 **/*minted*
+gaumesh/*.pdf

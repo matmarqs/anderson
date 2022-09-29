@@ -2,7 +2,8 @@
 #
 # Program gaumesh.py
 #
-# (c) 2008 by David Jacob
+# (c) 2008 by David Jacob.
+# Modified by Mateus Marques on September 2022
 #
 # constructs a Gaussian mesh i.e. the sampling rate dN/dx is given by a
 # superposition of Gaussian functions centered at different points x0
@@ -21,10 +22,10 @@ from math import *
 class GauMesh:
     # Construct a mesh:
     #  A's:     weights of Gaussians
-    #  alpha's: Gaussian exponents
+    #  alpha's: gaussian exponents
     #  x0's:    positions of Gaussian
-    #  xmin:    Start of mesh
-    #  xmax:    End of mesh
+    #  xmin:    start of mesh
+    #  xmax:    end of mesh
     #  Npoints: number of mesh points
     def __init__(self, A, alpha, xpos, xmin, xmax):
         self.ng = len(A)
@@ -91,7 +92,6 @@ if len(sys.argv[1:]) == 0 or sys.argv[1] == "--help" or sys.argv[1] == "-h":
 
     """
     print(help_message)
-
     exit(1)
 
 x0 = []
@@ -125,26 +125,32 @@ if len(x0) != len(dx0) or len(x0) != len(fwhm):
     sys.stderr.write("Error: Lists x0[:],dx0[0],fwhm[:] have different lengths. Abort.\n")
     sys.exit(1)
 
-
 # Number of Gaussians that build up mesh
 ng = len(x0)
 
 for i in range(ng):
-    alpha.append(4*log(2)/(fwhm[i])**2)
+    alpha.append(4*log(2)/fwhm[i]**2)
     A.append(2*sqrt(alpha[i]/pi)/erf(sqrt(alpha[i])*dx0[i]/2))
 
 mesh = GauMesh(A, alpha, x0, xmin, xmax)
 N_points = mesh.Npoints
-meshN = lambda x, n_i: mesh.N(x - n_i)
-#def meshN(x):
-#    return mesh.N(x)-ni
+Func_min = mesh.N(xmin)
+# we define Func = mesh.N(x) - mesh.N(xmin)
+# in order for Func(xmin) = 0 and ceil( Func(xmax) ) = N_points
+Func = lambda x, n: mesh.N(x) - Func_min - n
 
-print("# NPoints =",N_points,", NGauss =",ng,", x0 =",x0,", dx0 =",dx0,", fwhm =",fwhm,", xmin =",xmin,", xmax =",xmax)
+print("# N_points =",N_points,", NGauss =",ng,", x0 =",x0,", dx0 =",dx0,", fwhm =",fwhm,", xmin =",xmin,", xmax =",xmax)
 
+# x \in [x_min, x_max]
+# F \in [0, N_points + epsilon]
+# The idea is
+# For each function f_n(x) = F(x) - n, we find its root x_n such that f_n(x_n) = 0
+# This is equivalent to calculating the inverse of F at the integers
+# This will give us the Gaussian mesh
+print("%15.10f" % xmin) # We always print xmin
 xn0 = xmin
-for i in range(N_points):
-    n_i = i - N_points/2
-    xn = bisect(f=meshN, a=xn0, b=xmax, args=(n_i), xtol=1e-15, maxiter=10000)
-    if n_i != 0:
-        print("%15.10f" % xn)
+for n in range(1, N_points + 1):
+    xn = bisect(f=Func, a=xn0, b=xmax, args=(n), xtol=1e-15, maxiter=10000)
+    print("%15.10f" % xn)
     xn0 = xn
+print("%15.10f" % xmax) # We always print xmax
