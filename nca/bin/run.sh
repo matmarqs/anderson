@@ -8,7 +8,7 @@ HERE=$(dirname "$0")
 if [ -n "$SIGINP" ]; then   # if there is SIGINP variable
    if [ -f "$HERE"/sig.inp ]; then  # if there is already a sig.inp, backup it
       [ ! -d "$HERE"/backup_sig ] && mkdir -p "$HERE"/backup_sig
-      mv "$HERE"/sig.inp "$HERE/backup_sig/sig-$(date "+%b%d_%H:%M:%S").inp.bak"
+      cp "$HERE"/sig.inp "$HERE/backup_sig/sig-$(date "+%b%d_%H:%M:%S").inp.bak"
    fi
    cp "$SIGINP" "$HERE"/sig.inp  # copy $SIGINP to ./sig.inp to be runned
 else  # if there is NOT SIGINP variable

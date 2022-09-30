@@ -4,3 +4,5 @@
 **/*minted*
 gaumesh/*.pdf
 **/*.swp
+nca/bin/backup_sig/
+nca/bin/output/
