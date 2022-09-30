@@ -1,0 +1,13 @@
+Ac=Ac.inp         # Name of bath spectral function input file
+gloc=gloc.out     # Name of local Green's function output file
+Sig=Sigmapp.inp   # Name of PP Self-enery initial guess input file
+sig=sig.out       # Name of electron slef-energy output file
+#
+Ed=[-2.0]         # energies of non-degenerate impurity level(s)
+StartLambda=-2.0  # Where to start looking for zero to determin lambda0
+Q=1  	          # parameter to determin lambda0
+followPeak=1      # mode to determin lambda0
+max_diff=0.0001   # maximum difference between steps
+max_steps=20      # maximum impurity steps
+alpha=0.5         # Fraction of new self-energy to be mixed with old one
+T=0.0001          # Temperature
