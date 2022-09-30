@@ -1,0 +1,12 @@
+The directory "src" just contains the source code of the "nca" executable.
+You can type "make" inside it to compile the program again.
+
+The directory "bin" contains only the executables and input files.
+I wrote the script "bin/run.sh" that runs "nca" given the files "Ac.inp" and "sig.inp"
+The usage is "./run.sh $ACFILE $SIGINP"
+The script will generate a "output" directory that contains all nca's output.
+It will also create a "backup_sig" directory that storages previously used "sig.inp" files
+
+Finally, the script "clean.sh" just does "rm -rf output ; rm -rf backup_sig".
+
+~ written by Mateus Marques
