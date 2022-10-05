@@ -1,0 +1,131 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\input{preamble}
+
+\title{\Huge{\textbf{NCA}}}
+\author{Mateus Marques}
+
+\begin{document}
+
+\maketitle
+
+\section{Slave Boson}
+
+Aqui $k = \k$ significa todos os números quânticos além do spin.
+
+Lembremos
+$$
+H = H_{\text{bath}} + H_{\text{hyb}} + H_{\text{imp}},
+$$
+onde
+$$
+H_{\text{bath}} = \sum_{k \s} \eps_{k \s} c_{k \s}^\d c_{k\s},
+$$
+$$
+H_{\text{hyb}} = \sum_{k \s}
+\Big(
+V_{k\s} c_{k\s}^\d f_\s + V_{k\s}^* f_\s^\d c_{k\s}
+\Big),
+$$
+$$
+H_{\text{imp}} = U n_{\up} n_\dn + \sum_{k \s} \eps_{0} f_{\s}^\d f_{\s}.
+$$
+
+Primeiramente, observemos que o espaço de Hilbert em consideração é o produto tensorial $\H = \H_{\text{imp}} \otimes \H_{\text{conduction}}$, onde os estados de impureza são representados por $\ket{\alpha}$ e os estados de elétrons de condução por $\ket{c}$. Note então que $H_{\text{imp}}$ é diagonalizado pelos estados $\ket{\alpha} = \0$, $\kup$, $\kdn$ e $\2$:
+$$
+\begin{cases}
+\; H_{\text{imp}} \0 = 0 \cdot \0, \\
+\; H_{\text{imp}} \kup = \eps_0 \kup, \\
+\; H_{\text{imp}} \kdn = \eps_0 \kdn, \\
+\; H_{\text{imp}} \2   = (2\eps_0 + U) \2.
+\end{cases}
+$$
+Escrevemos então
+$$
+H_{\text{imp}} = \sum_\a \eps_\a \ketbra{\a}{\a}.
+$$
+Temos os elementos de matrizes (todos os outros são nulos)
+$$
+\mel{\up}{f_\up^\d}{0} = 1, \quad \mel{2}{f_\up^\d}{\dn} = 1,
+$$
+$$
+\mel{\dn}{f_\dn^\d}{0} = 1, \quad \boxed{\mel{2}{f_\dn^\d}{\up} = -1.} \; ?
+$$
+Portanto, vale que
+$$
+f_\up^\d = \ketbra{\up}{0} + \ketbra{2}{\dn} = X_{\up, 0} + X_{2, \dn},
+$$
+$$
+f_\dn^\d = \ketbra{\dn}{0} - \ketbra{2}{\up} = X_{\dn, 0} - X_{2, \up},
+$$
+onde definimos os operadores de Hubbard $X_{p, q} = \ketbra{p}{q}$. Como os estados $\ket{\a}$ são ortonormais, temos a seguinte álgebra de Lie para os operadores de Hubbard:
+$$
+[X_{p, q}, X_{q', p'}] = \ket{p}\braket{q}{q'}\bra{p'} - \ket{q'}\braket{p'}{p}\bra{q}
+= \delta_{q, q'} X_{p, p'} - \delta_{p, p'} X_{q', q}.
+$$
+Agora utilizamos a seguinte representação para os operadores de Hubbard:
+
+\n
+
+Informalmente:
+$$
+\begin{cases}
+\; \0 \to b, \quad \text{(bosônico)} \\
+\; \kup \to s_\up, \quad \text{(fermiônico)} \\
+\; \kdn \to s_\dn, \quad \text{(fermiônico)} \\
+\; \2 \to a. \quad \text{(bosônico)}
+\end{cases}
+$$
+
+Formalmente:
+$$
+\begin{cases}
+\; X_{0,0} = b^\d b, \quad \;\; X_{0, \up} = b^\d s_\up,
+ \quad X_{0, \dn} = b^\d s_\dn, \quad X_{0, 2} = b^\d a, \\
+\; X_{\up,\up} = s_\up^\d s_\up, \quad X_{\up, \dn} = s_\up^\d s_\dn,
+ \quad X_{\up, 0} = s_\up^\d b, \quad \; X_{\up, 2} = s_\up^\d a, \\
+\; X_{\dn,\dn} = s_\dn^\d s_\dn, \quad X_{\dn, \up} = s_\dn^\d s_\up,
+ \quad X_{\dn, 0} = s_\dn^\d b, \quad \; X_{\dn, 2} = s_\dn^\d a, \\
+\; X_{2,2} = a^\d a, \quad \; X_{2, \up} = a^\d s_\up,
+ \quad X_{2, \dn} = a^\d s_\dn, \quad X_{2, 0} = a^\d b,
+\end{cases}
+$$
+onde impomos os seguintes vínculos:
+\begin{itemize}
+\item $s_\up$, $s_\dn$ são fermiônicos: $\{s_\up^\d, s_\up\} = \{s_\dn^\d, s_\dn\} = 1$ e $\{s_\up, s_\dn\} = \{s_\up^\d, s_\dn\} = \{s_\up^\d, s_\dn^\d\} = 0$.
+\item $a$ e $b$ são bosônicos: $\{a,a^\d\} =1$ e $\{b, b^\d\} = 1$.
+\item $a$, $b$ e $s_{\up\dn}$ representam partículas diferentes, então eles também comutam entre si: $[a, b] = [a, s_{\up\dn}] = [b, s_{\up\dn}] = 0$ (o mesmo para os dagger's).
+\item $Q \equiv a^\d a + b^\d b + s_\up^\d s_\up + s_\dn^\d s_\dn = 1$ (só existem essas 4 possibilidades).
+\end{itemize}
+
+A partir da representação acima para os operadores de Hubbard, utilizando as regras de comutação listadas é possível verificar que $X_{p,q}$ continua satisfazendo a mesma relação algébrica da álgebra de Lie. Esse é o fato que faz a representação pelos operadores acima ser válida.
+
+Devido ao vínculo $Q = 1$ ($Q$ é um projetor), adicionamos o fator $\lambda (Q - 1)$ na hamiltoniana, onde enxergamos $\lambda = -\mu$ como um potencial químico negativo e faremos as contas no ensemble grande canônico ($G$). Para voltarmos ao ensemble canônico, temos o ``truque de Abrikosov''
+\begin{equation} \label{eq:abrikosov}
+\ev{A} = \lim_{\lambda \to \infty} \frac{\ev{AQ}_G(\lambda)}{\ev{Q}_G(\lambda)}.
+\end{equation}
+Note que o operador $AQ$ é o operador $A$ restrito ao subespaço das impurezas (onde $Q = 1$). Temos (ignorando extras de Baker-Campbell-Hausdorff)
+$$
+\ev{QA}_G \stackrel{\lambda \to \infty}{\approx}
+\frac{1}{Z_C} \sum_{Q = 1} \mel{n}{Ae^{-\beta H}}{n} +
+\sum_{Q = 0} \mel{n}{\cancelto{0}{Q}A\rho_G}{n},
+$$
+e tomando $A = 1$
+$$
+\ev{Q}_G \stackrel{\lambda \to \infty}{\approx}
+\frac{1}{Z_C} \sum_{Q = 1} \mel{n}{e^{-\beta H}}{n} = \tr(\rho) = 1,
+$$
+o que nos dá a equação \ref{eq:abrikosov}.
+
+Caso $A$ seja um operador de impureza próprio, então $AQ = A$ e
+\begin{equation} \label{eq:abrikosov-imp}
+\ev{A} = \lim_{\lambda \to \infty} \frac{\ev{A}_G(\lambda)}{\ev{Q}_G(\lambda)}.
+\end{equation}
+
+
+\section{NCA}
+
+Derivemos a expressão para o NCA nos baseando na seção 7.2 do Hewson (perturbação Keiter-Kimball).
+
+
+
+\end{document}

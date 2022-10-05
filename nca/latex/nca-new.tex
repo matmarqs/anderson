@@ -1,0 +1,131 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\input{preamble}
+
+\title{\Huge{\textbf{NCA}}}
+\author{Mateus Marques}
+
+\renewcommand{\tr}{\text{tr}}
+\renewcommand{\a}{\alpha}
+\renewcommand{\s}{\sigma}
+\newcommand{\us}{\overline{\sigma}}
+\renewcommand{\d}{\dagger}
+\newcommand{\up}{\uparrow}
+\newcommand{\dn}{\downarrow}
+\newcommand{\nF}{n_\text{F}}
+
+\begin{document}
+
+\maketitle
+
+\section{Diagramas}
+
+$$
+Z = \tr_{f} \tr_{c}\qty{e^{-\beta H}} =
+\frac{1}{2\pi i}\int_\Gamma e^{-\beta z} \, \tr_{f} \tr_{c} (z-H)^{-1} \dd{z}.
+$$
+
+$$
+R_\alpha = \frac{1}{Z_c} \sum_c e^{-\beta E_c} (z-E_\alpha)^{-1} \bra{\alpha}\bra{c}
+\sum_{n=0}^\infty \Big[ H_I (z+E_c - H_0)^{-1} \Big]^n \ket{c} \ket{\alpha}.
+$$
+
+Para qualquer $\alpha$ temos
+$$
+R_\alpha^{(0)} = \frac{1}{z - E_\alpha},
+$$
+ou seja, o propagador livre.
+
+O $H_I$ é dado por
+$$
+H_I = \sum_{k \s}
+\Big(
+V_{k\s} s_{\s}^\d b c_{k\s} +
+V_{k\s}^* c_{k\s}^\d b^\d s_{\s}
+\Big) +
+\sum_{k \s}
+\Big(
+V_{k\s} a^\d s_{\us} c_{k\s} +
+V_{k\s}^* c_{k\s}^\d s_{\us}^\d a
+\Big).
+$$
+
+
+Temos que o termo com $(H_I)^1$ é nulo para qualquer $\alpha$. Calculemos somente o termo de ordem 2:
+$$
+R_\alpha^{(2)} = \frac{1}{Z_c} \sum_c e^{-\beta E_c} (z-E_\alpha)^{-1} \bra{\alpha}\bra{c}
+H_I (z+E_c - H_0)^{-1} H_I (z+E_c - H_0)^{-1} \ket{c} \ket{\alpha}.
+$$
+$$
+R_\alpha^{(2)} = \frac{1}{Z_c} \sum_c e^{-\beta E_c} (z-E_\alpha)^{-2} \bra{\alpha}\bra{c}
+H_I (z+E_c - H_0)^{-1} H_I \ket{c} \ket{\alpha}.
+$$
+Definamos o termo $\ket{T_{c,\alpha}} = H_I \ket{c} \ket{\alpha}$:
+$$
+\ket{T_{c,0}} = H_I \ket{c}\ket{0} =
+\sum_{k\s} V_{k\s} \Big(
+s_{\s}^\d b + a^\d s_{\us}
+\Big) \ket{0_c} \ket{0} =
+\sum_{k} \Big(
+V_{k\up} \ket{\up} + V_{k\dn} \ket{\dn}
+\Big).
+$$
+$$
+\ket{T_{c,0}} = \sum_{k\s} V_{k\s} \ket{\sigma}.
+$$
+De maneira que
+$$
+R_0^{(2)} = \frac{1}{Z_c} \sum_c e^{-\beta E_c} (z-E_0)^{-2}
+\sum_{k\s} \sum_{q\tau} V_{k\s}^* V_{q\tau}
+\bra{\sigma} \bra{0_c}
+(z+E_c - H_0)^{-1}
+\ket{0_c}\ket{\tau}.
+$$
+$$
+R_0^{(2)} = \frac{1}{Z_c} \sum_c e^{-\beta E_c} (z-E_0)^{-2}
+\sum_{k\s} \sum_{q\tau} V_{k\s}^* V_{q\tau}
+(z + \eps_k - E_\tau)^{-1}
+\bra{\sigma} \bra{0_c}
+\ket{0_c}\ket{\tau}.
+$$
+$$
+R_0^{(2)} = (z-E_0)^{-1}
+\sum_{k\s} V_{k\s}^* V_{k\tau}
+(z + \eps_k - E_\tau)^{-1}
+\delta_{\s \tau} (z-E_0)^{-1}
+\boxed{\sum_c \frac{e^{-\beta E_c }\braket{0_c}{0_c}}{Z_c}}
+$$
+$$
+R_0^{(2)} = (z-E_0)^{-1}
+\qty[
+\sum_{k\s} \abs{V_{k\s}}^2 \frac{\nF(\eps_{k\s})}{(z + \eps_k - E_\s)^{-1}}
+]
+(z - E_0)^{-1}.
+$$
+Corrigindo o polo $E_\s \to E_\s + \Sigma_\s$, conseguimos identificar a self-energy como
+$$
+\Sigma_0(\omega) =
+\sum_{k\s} \abs{V_{k\s}}^2 \frac{\nF(\eps_{k\s})}{(\omega + \eps_k - E_\s)^{-1}} =
+\int_{-\infty}^\infty \frac{\dd{\eps}}{\pi} \,
+\nF(\eps) \sum_\s \Delta_\s(\eps) G_\s(\omega + \eps),
+$$
+onde $\Delta(\eps) = \pi \sum_k \abs{V_{k\s}}^2 \delta(\eps - \eps_k)$.
+
+\n
+
+Repetimos esse cálculo para $\alpha = \; \up$, $\dn$ e $2$.
+$$
+\ket{T_{c,\up}} = H_I \ket{c}\ket{\up} =
+\sum_{k\s} V_{k\s} \Big(
+s_{\s}^\d b + a^\d s_{\us}
+\Big) \ket{0_c} \ket{\up} =
+\sum_{k} \Big(
+V_{k\up} \ket{\up} + V_{k\dn} \ket{\dn}
+\Big).
+$$
+$$
+\ket{T_{c,0}} = \sum_{k\s} V_{k\s} \ket{\sigma}.
+$$
+
+
+
+\end{document}
