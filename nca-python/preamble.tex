@@ -57,7 +57,7 @@
 \newcommand{\F}{\vb{F}}
 
 \newcommand{\gf}[2]{\ev{\ev{#1 : #2}}}
-\newcommand{\zub}[2]{\ev{\acomm{#1}{#2}}}
+\newcommand{\zub}[2]{\ev{\comm{#1}{#2}_\mp}}
 \newcommand{\up}{\uparrow}
 \newcommand{\dn}{\downarrow}
 \newcommand{\0}{\ket{0}}
@@ -67,8 +67,14 @@
 %\newcommand{\bup}{\bra{\uparrow}}
 %\newcommand{\bdn}{\bra{\downarrow}}
 
+\renewcommand{\tr}{\text{tr}}
+\renewcommand{\a}{\alpha}
 \newcommand{\s}{\sigma}
+\newcommand{\w}{\omega}
+\newcommand{\us}{{\overline{\sigma}}}
 \renewcommand{\d}{\dagger}
+\newcommand{\nF}{n_\text{F}}
+
 \renewcommand{\S}[1]{\mathcal{#1}}
 %\newcommand{\prodint}[2]{\left\langle #1 , #2 \right\rangle}
 \newcommand{\cc}[1]{\overline{#1}}
@@ -89,4 +95,4 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
-\setlength{\droptitle}{-8em}
+\setlength{\droptitle}{-6em}

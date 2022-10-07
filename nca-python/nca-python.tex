@@ -1,0 +1,52 @@
+\documentclass[a4paper,fleqn,12pt]{article}
+\input{preamble}
+
+\title{\Huge{\textbf{NCA again}}}
+\author{Mateus Marques}
+
+\begin{document}
+
+\maketitle
+
+\section{GO!}
+As funções de Green das pseudopartículas são
+$$
+G_b(\w) = \frac{1}{\w - \lambda - \Sigma_b(\w)}.
+$$
+$$
+G_{\s}(\w) = \frac{1}{\w - \lambda - \eps_0 - \Sigma_\s(\w)}.
+$$
+$$
+G_a(\w) = \frac{1}{\w - \lambda - 2\eps_0 - U - \Sigma_a(\w)}.
+$$
+
+As auto-energias delas são
+$$
+\Sigma_b(\w) = \intR \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Big[
+\Delta_\s(\eps) G_\s(\eps+\w) + \Delta_\us(\eps) G_\us(\eps+\w)
+\Big].
+$$
+$$
+\Sigma_\s(\w) = \intR \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Big[
+\Delta_\s(-\eps) G_b(\eps+\w) + \Delta_\us(\eps) G_a(\eps+\w)
+\Big].
+$$
+$$
+\Sigma_a(\w) = \intR \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Big[
+\Delta_\s(-\eps) G_\us(\eps+\w) + \Delta_\us(-\eps) G_\s(\eps+\w)
+\Big].
+$$
+
+A função espectral da impureza é
+$$
+\rho_\s(\w) = - \frac{\Im{K_\s(\w)}}{\pi} =
+\frac{\intR \dd{\eps} e^{-\beta \eps}
+\Big[A_b(\eps)A_\s(\eps+\w) + A_\us(\eps) A_a(\eps + \w)\Big]}
+{\intR \dd{\eps} e^{-\beta \eps}
+\Big[A_b(\eps) + A_\s(\eps) + A_\us(\eps) +  A_a(\eps)\Big]}.
+$$
+
+\end{document}
