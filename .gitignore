@@ -6,3 +6,4 @@ gaumesh/*.pdf
 **/*.swp
 nca/bin/backup_sig/
 nca/bin/output/
+nca-python/impurity-solvers.pdf

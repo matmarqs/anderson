@@ -22,21 +22,45 @@ $$
 
 As auto-energias delas são
 $$
-\Sigma_b(\w) = \intR \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Sigma_b(\w) = \int_{-D}^{D} \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Delta(\eps)
 \Big[
-\Delta_\s(\eps) G_\s(\eps+\w) + \Delta_\us(\eps) G_\us(\eps+\w)
+G_\s(\eps+\w) + G_\us(\eps+\w)
 \Big].
 $$
 $$
-\Sigma_\s(\w) = \intR \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Sigma_\s(\w) = \int_{-D}^{D} \frac{\nF(\eps) \dd{\eps}}{\pi}
 \Big[
-\Delta_\s(-\eps) G_b(\eps+\w) + \Delta_\us(\eps) G_a(\eps+\w)
+\Delta(-\eps) G_b(\eps+\w) + \Delta(\eps) G_a(\eps+\w)
 \Big].
 $$
 $$
-\Sigma_a(\w) = \intR \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Sigma_a(\w) = \int_{-D}^{D} \frac{\nF(\eps) \dd{\eps}}{\pi}
+\Delta(-\eps)
 \Big[
-\Delta_\s(-\eps) G_\us(\eps+\w) + \Delta_\us(-\eps) G_\s(\eps+\w)
+G_\s(\eps+\w) + G_\us(\eps+\w)
+\Big].
+$$
+
+Fazendo $\eps = \tilde{\eps} - \w$:
+$$
+\Sigma_b(\w) = \int_{-D+\w}^{D+\w} \frac{\nF(\eps-\w) \dd{\eps}}{\pi}
+\Delta(\eps-\w)
+\Big[
+G_\s(\eps) + G_\us(\eps)
+\Big].
+$$
+$$
+\Sigma_\s(\w) = \int_{-D+\w}^{D+\w} \frac{\nF(\eps-\w) \dd{\eps}}{\pi}
+\Big[
+\Delta(-\eps+\w) G_b(\eps) + \Delta(\eps-\w) G_a(\eps)
+\Big].
+$$
+$$
+\Sigma_a(\w) = \int_{-D+\w}^{D+\w} \frac{\nF(\eps-\w) \dd{\eps}}{\pi}
+\Delta(-\eps+\w)
+\Big[
+G_\s(\eps) + G_\us(\eps)
 \Big].
 $$
 
