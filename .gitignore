@@ -1,6 +1,5 @@
 **/*.log
 **/*.aux
-**/*.out
 **/*minted*
 gaumesh/*.pdf
 **/*.swp
