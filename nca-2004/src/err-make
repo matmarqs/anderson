@@ -1,0 +1,7 @@
+makefile:30: warning: ignoring prerequisites on suffix rule definition
+makefile:26: warning: ignoring prerequisites on suffix rule definition
+makefile:26: warning: ignoring prerequisites on suffix rule definition
+makefile:30: warning: ignoring prerequisites on suffix rule definition
+/bin/ld: cannot find -lg2c
+collect2: error: ld returned 1 exit status
+make: *** [makefile:39: PC/nca] Error 1

@@ -1,22 +1,22 @@
-include Makefile.$(PLATFORM)
+include Makefile.PC
 
 executable = $(DIR)/nca
-fobjects = 
+fobjects =
 cobjects = $(DIR)/Main.o
 objects = $(fobjects) $(cobjects)
 
 base_headers = Common.h average.h function.h mesh.h
 
-util_headers = assert.h  complex.h  util.h zeroin.h parser.h  timer.h  
+util_headers = assert.h  complex.h  util.h zeroin.h parser.h  timer.h
 
 headers = $(base_headers) $(util_headers)
 
 OFLAGS = $(OPT) -DNO_ARG_CHECK
-GFLAGS = -g -DCTMA_DEBUG 
+GFLAGS = -g -DCTMA_DEBUG
 ADFLAGSCC = `if [ x$(RELEASE) != x ]; then echo $(OFLAGS); else echo $(GFLAGS); fi`
 ADFLAGS = $(OPT)
 
-FFLAGS  = $(ADFLAGS)   $(PFFLAGS) 
+FFLAGS  = $(ADFLAGS)   $(PFFLAGS)
 CFLAGS  = $(ADFLAGSCC) $(PFFLAGSCC)
 LDFLAGS = $(ADFLAGSCC) $(PFFLAGSCC) $(LDPFLAGS) $(LIBPATH)
 cFLAGS  = $(ADFLAGSCC) $(PFFLAGSCC)
@@ -30,7 +30,7 @@ cFLAGS  = $(ADFLAGSCC) $(PFFLAGSCC)
 	$(cc) $(cFLAGS) -c $<
 
 .SUFFIXES : .f
-.f.o: 
+.f.o:
 	$(F77) $(FFLAGS) -c $<
 
 all : $(executable) $(DIR)/generate
