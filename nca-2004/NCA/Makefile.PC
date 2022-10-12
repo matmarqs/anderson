@@ -1,0 +1,10 @@
+DIR = PC
+F77 = f77
+C++ = g++
+cc = cc
+OPT = -O3 -funroll-all-loops
+PFFLAGS   = 
+PFFLAGSCC = $(PFFLAGS) -D_PC_
+LIBPATH = -L$(HOME)/lib -static
+LIBS =  -L/opt/intel/mkl/8.0/lib/32 -lmkl_lapack -lguide #-llapack -lblas -lm -lg2c
+HILB_BIN = $(HOME)/realMaterial/bin
