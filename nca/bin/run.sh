@@ -18,7 +18,7 @@ fi
 # Run the program
 EXIT=0
 [ ! -d "$HERE"/output ] && mkdir -p "$HERE"/output # output directory
-if "$HERE"/nca "Ac=$(realpath --relative-to="$(pwd)" "$ACFILE")" > output/nca.log ; then
+if "$HERE"/nca "Ac=$(realpath --relative-to="$(pwd)" "$ACFILE")" "U=7" > output/nca.log ; then
    # Organize the output
    mv "$HERE"/Aloc.imp "$HERE"/output
    mv "$HERE"/*.out "$HERE"/output  # gloc.out and sig.out
