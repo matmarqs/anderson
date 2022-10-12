@@ -9,12 +9,12 @@ private:
   double re, im;
 public:
   dcomplex (double r = 0, double i = 0): re (r), im (i) { }
-  
+
   dcomplex& operator+= (const double r);
   dcomplex& operator-= (const double r);
   dcomplex& operator*= (const double r);
   dcomplex& operator/= (const double r);
-  
+
   dcomplex& operator+= (const dcomplex& r);
   dcomplex& operator-= (const dcomplex& r);
   dcomplex& operator*= (const dcomplex& r);
@@ -57,7 +57,7 @@ private:
   friend dcomplex sqrt(const dcomplex& z);
   friend dcomplex sqrt_(const dcomplex& z);
   friend dcomplex sqrt(const dcomplex& z1, const dcomplex x2);
-  friend bool isnan(const dcomplex& z) { return ::isnan(z.re) || ::isnan(z.im);}
+  friend bool isnan(const dcomplex& z) { return std::isnan(z.re) || std::isnan(z.im);}
   friend double arg(const dcomplex& x) { return atan2(x.imag(), x.real());}
   friend double norm (const dcomplex& r) { return r.re*r.re+r.im*r.im;}
   friend double abs(const dcomplex& r) { return sqrt(norm(r));}
@@ -180,7 +180,7 @@ inline dcomplex operator / (const dcomplex& x, double y)
   return dcomplex(x.re/y, x.im/y);
 }
 
-inline dcomplex operator / (double x, const dcomplex& y)  
+inline dcomplex operator / (double x, const dcomplex& y)
 {
   double xnorm = x/norm(y);
   return dcomplex(xnorm * y.re, -xnorm * y.im);
@@ -239,7 +239,7 @@ inline dcomplex log(const dcomplex& x)
 
 inline dcomplex sqrt(const dcomplex& z1, const dcomplex z2)
 {
-  
+
   double fi1 = atan2(z1.im, z1.re);
   double fi2 = atan2(z2.im, z2.re);
   double fi = 0.5*(fi1+fi2);
@@ -283,7 +283,7 @@ inline dcomplex coth(const dcomplex& z)
   double im = 1./(sqr(u2*cy)+sqr(u1*sy));
   return dcomplex (u1*u2*im, cy*sy*(sqr(u2)-sqr(u1))*im);
 }
-  
+
 inline std::ostream& operator<< (std::ostream& stream, const dcomplex& r){
   int width = stream.width();
   stream << std::setw(width)<< r.re << " " << std::setw(width) << r.im << " ";
