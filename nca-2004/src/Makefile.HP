@@ -1,0 +1,10 @@
+DIR = HP
+F77 = f77
+C++ = aCC
+cc = cc
+OPT = +Oall
+PFFLAGS   = +DA2.0 +DS2.0
+PFFLAGSCC = -D_HP_ -D__HPACC_STRICTER_ANSI__ -Aa $(PFFLAGS)
+LIBPATH = -L/opt/mlib/lib/pa2.0/ -L/opt/fortran90/lib
+LIBS = -llapack
+#ADFLAGSCC = -DNO_ARG_CHECK +O2
