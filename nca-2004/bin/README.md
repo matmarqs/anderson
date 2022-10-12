@@ -6,5 +6,5 @@ To generate cix file:
   Enter your choice in format [xx-yy]+[,xx]+ (Example: 0-12,15,20)
      19-82
   Give output filename?
-     cix-2004.dat
-  Output written on cix-2004.dat
+     cix.dat
+  Output written on cix.dat
