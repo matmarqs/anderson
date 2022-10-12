@@ -6,5 +6,5 @@ OPT = -O3 -funroll-all-loops
 PFFLAGS   =
 PFFLAGSCC = $(PFFLAGS) -D_PC_
 LIBPATH = -L$(HOME)/lib -static
-LIBS = -llapack -lblas -lm -lg2c	# -L/opt/intel/mkl/8.0/lib/32 -lmkl_lapack -lguide
+LIBS = -llapack -lblas -lm # -lg2c # -L/opt/intel/mkl/8.0/lib/32 -lmkl_lapack -lguide
 HILB_BIN = $(HOME)/realMaterial/bin

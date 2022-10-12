@@ -1,5 +1,7 @@
 include Makefile.PC
 
+RELEASE = 1
+
 executable = $(DIR)/nca
 fobjects =
 cobjects = $(DIR)/Main.o
