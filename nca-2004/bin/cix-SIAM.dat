@@ -1,0 +1,38 @@
+# Input file for UNCA impurity solver. Do not change this file if you are not absolutely aware of what you are doing!
+1 2 3  # Number of baths it's degeneracy an number of all local states
+# i  state  Mtot    Deg   ncabprefactb ncafprefactfprefactG_loc
+  0   0     0      1      1    2   -1    0    1
+  1   1     1      2      2    1    0    1    1
+  2   2     2      1     -1    0    1    2    0
+# 2-nd order back-back
+  0   1  2  1   
+  1  -1 -1 -1   
+  2  -1 -1 -1   
+# 2-nd order back-forward
+  0  -1 -1 -1   
+  1   2  1  0   
+  2  -1 -1 -1   
+# 2-nd order forward-forward
+  0  -1 -1 -1   
+  1  -1 -1 -1   
+  2   1  0  1   
+# 2-nd order local-gf
+  0   1  2  1   
+  1  -1 -1 -1   
+  2  -1 -1 -1   
+# 2-nd order back-back
+  0         2   
+  1         0   
+  2         0   
+# 2-nd order back-forward
+  0         0   
+  1         2   
+  2         0   
+# 2-nd order forward-forward
+  0         0   
+  1         0   
+  2         2   
+# 2-nd order local-gf
+  0         2   
+  1         0   
+  2         0   
